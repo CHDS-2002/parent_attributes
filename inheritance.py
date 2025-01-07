@@ -2,62 +2,51 @@ import os
 
 os.system('COLOR B')
 
+class Vehicle:
+    def __init__(self, owner: str, __model: str, __color: str, __engine_power: int):
+        self.owner = owner
+        self.__model = __model
+        self.__engine_power = __engine_power
+        self.__color = __color
+        self.__COLOR_VARIANTS = ['blue', 'red', 'green', 'black', 'white']
 
-class Animal:
-    def __init__(self, name, alive=True, fed=False):
-        self.name = name
-        self.alive = alive
-        self.fed = fed
+    def get_model(self):
+        return f"Модель: {self.__model}"
 
-    def eat(self, food):
-        if isinstance(food, Fruit):
-            print(f'{self.name} съел {food.name}')
-            self.fed = True
+    def get_horsepower(self):
+        return f"Мощность двигателя: {self.__engine_power}"
+
+    def get_color(self):
+        return f"Цвет: {self.__color}"
+
+    def print_info(self):
+        print(self.get_model())
+        print(self.get_horsepower())
+        print(self.get_color())
+        print(f"Владелец: {self.owner}")
+
+    def set_color(self, new_color: str):
+        if new_color.lower() in self.__COLOR_VARIANTS:
+            self.__color = new_color
         else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False
+            print(f"Нельзя сменить цвет на {new_color}")
 
+class Sedan(Vehicle):
+    __PASSENGERS_LIMIT = 5
 
-class Plant:
-    def __init__(self, name, edible=False):
-        self.name = name
-        self.edible = edible
+# Текущие цвета __COLOR_VARIANTS = ['blue', 'red', 'green', 'black', 'white']
+vehicle1 = Sedan('Fedos', 'Toyota Mark II', 'blue', 500)
 
+# Изначальные свойства
+vehicle1.print_info()
 
-class Mammal(Animal):
-    pass
+# Меняем свойства (в т.ч. вызывая методы)
+vehicle1.set_color('Pink')
+vehicle1.set_color('BLACK')
+vehicle1.owner = 'Vasyok'
 
-
-class Predator(Animal):
-    pass
-
-
-class Flower(Plant):
-    pass
-
-
-class Fruit(Plant):
-    def __init__(self, name, edible=True):
-        self.name = name
-        self.edible = edible
-
-
-a1 = Predator('Волк с Уолл-Стрит')
-a2 = Mammal('Хатико')
-p1 = Flower('Цветик семицветик')
-p2 = Fruit('Заводной апельсин')
-
-print(a1.name)
-print(p1.name)
-
-print(a1.alive)
-print(a2.fed)
-
-a1.eat(p1)
-a2.eat(p2)
-
-print(a1.alive)
-print(a2.fed)
+# Проверяем что поменялось
+vehicle1.print_info()
 
 try:
     os.system('PAUSE')
